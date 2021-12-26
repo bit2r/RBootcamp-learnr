@@ -9,6 +9,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+knitr::opts_knit$set(root.dir = glue::glue("{here::here()}/rbootcamp"))
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -22,7 +23,22 @@ knitr::opts_chunk$set(echo = FALSE)
 - 행(row)은 단일 관측점에 대응된다.
 - 특정 조건에 따라 부분집합(subset) 혹은 필터(filter) 작업을 수행할 수 있다.
 
+```{r dataframe-intro, exercise=TRUE, exercise.eval=TRUE}
+gap1992 <- read.csv("data/gap1992.csv")
+## gap1992 데이터프레임 살펴보기
+gap1992
+```
 
+```{r dataframe-intro-hint}
+gap1992 <- read.csv("data/gap1992.csv")
+
+## gap1992 데이터프레임 살펴보기
+head(gap1992)
+## gap1992 칼럼명 살펴보기
+colnames(gap1992)
+##  gap1992 행갯수 확인하기
+nrow(gap1992)
+```
 
 
 
