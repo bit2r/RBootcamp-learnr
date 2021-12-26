@@ -5,7 +5,8 @@
 [**learnr**](https://rstudio.github.io/learnr/)  packages are for creating R tutorials with shiny apps running under the hood. Normally, running them require you to run a server or purchase  hosting service.
 
 
-shiny/setup: [![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/syoh/learnr-tutorial/master?urlpath=shiny/test1/)
+- 환경설정(shiny/setup): [![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bit2r/RBootcamp-learnr/master?urlpath=shiny%2Fsetup)
+- R훈련소(shiny/rbootcamp): [![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bit2r/RBootcamp-learnr/master?urlpath=shiny%2Frbootcamp)
 
 ## 소규모 자기주도 학습 콘텐츠 배포
 
