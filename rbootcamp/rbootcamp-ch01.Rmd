@@ -11,8 +11,9 @@ description: >
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(learnr)
+library(here)
 # library(learnrLara)
-knitr::opts_knit$set(root.dir = glue::glue("{here::here()}/rbootcamp"))
+# knitr::opts_knit$set(root.dir = glue::glue("{here::here()}/rbootcamp"))
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
