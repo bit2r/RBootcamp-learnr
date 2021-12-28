@@ -12,7 +12,7 @@ library(tidyverse)
 library(learnr)
 library(here)
 # library(learnrLara)
-knitr::opts_knit$set(root.dir = glue::glue("{here::here()}/rbootcamp"))
+# knitr::opts_knit$set(root.dir = glue::glue("{here::here()}/rbootcamp"))
 knitr::opts_chunk$set(echo = FALSE)
 
 pets <- read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_3864/datasets/pets.csv")
