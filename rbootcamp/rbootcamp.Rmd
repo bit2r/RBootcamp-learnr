@@ -1,0 +1,29 @@
+---
+title: "R 신병 훈련소"
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(learnr)
+library(here)
+# library(learnrLara)
+# knitr::opts_knit$set(root.dir = glue::glue("{here::here()}/rbootcamp"))
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## ggplot2의 마법
+
+```{r rbootcamp-chapter-01, child = "rbootcamp-ch01.Rmd"}
+
+```
+
+## ggplot2과 범주형 데이터
+
+```{r rbootcamp-chapter-02, child = "rbootcamp-ch02.Rmd"}
+
+```
