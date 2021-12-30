@@ -1,21 +1,3 @@
----
-title: "`ggplot2` 마술"
-output:
-  learnr::tutorial:
-    progressive: true
-    allow_skip: true
-runtime: shiny_prerendered
----
-
-```{r setup-ch01, include=FALSE}
-library(tidyverse)
-library(learnr)
-library(here)
-# library(learnrLara)
-# knitr::opts_knit$set(root.dir = glue::glue("{here::here()}/rbootcamp"))
-knitr::opts_chunk$set(echo = FALSE)
-```
-
 
 ### 데이터프레임 소개
 

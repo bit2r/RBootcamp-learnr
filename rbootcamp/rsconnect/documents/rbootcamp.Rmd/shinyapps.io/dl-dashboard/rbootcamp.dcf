@@ -1,0 +1,13 @@
+name: rbootcamp
+title: rbootcamp
+username:
+account: dl-dashboard
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5379581
+bundleId: 5418470
+url: https://dl-dashboard.shinyapps.io/rbootcamp/
+when: 1640824259.43376
+lastSyncTime: 1640824259.43377
+asMultiple: FALSE
+asStatic: FALSE
