@@ -31,3 +31,40 @@ ggplot2 이용한 시각화 추가 정보 학습
 ```{r rbootcamp-chapter-02, child = "rbootcamp-ch02.Rmd"}
 
 ```
+
+## 3장: dplyr 입문
+
+우리는 `ggplot2` 패러다임에 부합하는 데이터 세트를 다뤄보았습니다. 그러나 우리가 접하는 대부분의 데이터는, 실제로는 지저분하거나(결측치 등이 포함되며) 완전히 다른 형식입니다. 이 장에서는 데이터 프레임을 조작할 수 있는, 'dplyr'라는 'tidyverse' 패키지 군의 가장 강력한 도구 중 하나를 살펴보겠습니다.
+dplyr는 데이터 클린징을 수행하는 대부분의 성가신 작업에 대응하는 함수들이 있어 매우 유용합니다.
+
+특히, `dplyr`에서 제공하는 다음의 여섯 가지 기본적인 동작을 살펴보겠습니다.:
+
+- `filter()`
+- `mutate()`
+- `group_by()`/`summarize()`
+- `arrange()`
+- `select()`
+
+이 과정에서 우리는 몇 가지의 데이터 조작 과제를 수행할 것입니다. 당신은 곧 `dplyr` 전문가가 될 것입니다!
+
+`dplyr` 문법에 대해서 리마인드 하기 위해서 [dplyr 치트시트(컨닝 페이퍼)](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)가 유용할 수 있습니다. 별도의 창에 띄워두면 많은 도움이 됩니다. 
+
+(역자 주) dplyr 치트시트가 2021년 7월 업데이트 되었습니다. 업데이트된 것을 원하시면, [최신 dplyr 치트시트](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)를 사용하세요. 서로 보완재가 될 수 있어 공유합니다.
+
+또한 `데이터 프레임`의 변수 이름을 알 필요가 있을 경우에는 다음 예제처럼 컬럼 이름을 조회하십시요. `biopics` `데이터 프레임`의 모든 변수 이름을 얻을 수 있습니다.: 
+
+```{r ch03-colnames, eval = FALSE}
+colnames(biopics)
+```
+
+만약 함수에 대한 자세한 정보를 원할 경우에는 다음 `mutate()` 함수 `도움말`을 호출하는 것처럼 도움말을 요청하십시요.:
+
+```{r ch03-mutate, eval = FALSE}
+?mutate
+```
+
+다음 학습으로 넘어갑니다!
+
+```{r rbootcamp-chapter-03, child = "rbootcamp-ch02.Rmd"}
+
+```

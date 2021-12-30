@@ -1,53 +1,3 @@
----
-title: "R 신병 훈련소"
-output:
-  learnr::tutorial:
-    progressive: true
-    allow_skip: true
-runtime: shiny_prerendered
----
-
-```{r setup, include=FALSE}
-library(tidyverse)
-library(learnr)
-library(here)
-# library(learnrLara)
-# knitr::opts_knit$set(root.dir = glue::glue("{here::here()}/rbootcamp"))
-knitr::opts_chunk$set(echo = FALSE)
-```
-
-## 3장: dplyr 입문
-
-우리는 `ggplot2` 패러다임에 부합하는 데이터 세트를 다뤄보았습니다. 그러나 우리가 접하는 대부분의 데이터는, 실제로는 지저분하거나(결측치 등이 포함되며) 완전히 다른 형식입니다. 이 장에서는 데이터 프레임을 조작할 수 있는, 'dplyr'라는 'tidyverse' 패키지 군의 가장 강력한 도구 중 하나를 살펴보겠습니다.
-dplyr는 데이터 클린징을 수행하는 대부분의 성가신 작업에 대응하는 함수들이 있어 매우 유용합니다.
-
-특히, `dplyr`에서 제공하는 다음의 여섯 가지 기본적인 동작을 살펴보겠습니다.:
-
-- `filter()`
-- `mutate()`
-- `group_by()`/`summarize()`
-- `arrange()`
-- `select()`
-
-이 과정에서 우리는 몇 가지의 데이터 조작 과제를 수행할 것입니다. 당신은 곧 `dplyr` 전문가가 될 것입니다!
-
-`dplyr` 문법에 대해서 리마인드 하기 위해서 [dplyr 치트시트(컨닝 페이퍼)](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)가 유용할 수 있습니다. 별도의 창에 띄워두면 많은 도움이 됩니다. 
-
-(역자 주) dplyr 치트시트가 2021년 7월 업데이트 되었습니다. 업데이트된 것을 원하시면, [최신 dplyr 치트시트](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)를 사용하세요. 서로 보완재가 될 수 있어 공유합니다.
-
-또한 `데이터 프레임`의 변수 이름을 알 필요가 있을 경우에는 다음 예제처럼 컬럼 이름을 조회하십시요. `biopics` `데이터 프레임`의 모든 변수 이름을 얻을 수 있습니다.: 
-
-```{r ch03-colnames, eval = FALSE}
-colnames(biopics)
-```
-
-만약 함수에 대한 자세한 정보를 원할 경우에는 다음 `mutate()` 함수 `도움말`을 호출하는 것처럼 도움말을 요청하십시요.:
-
-```{r ch03-mutate, eval = FALSE}
-?mutate
-```
-
-다음 학습으로 넘어갑니다!
 
 
 ### 할당에 대한 이해
@@ -510,5 +460,366 @@ question("위에 제시된 두 코드의 차이점은 무엇인가요? 잘 모�
 )
 ```
 
+### 파이프 연산자: `%>%`
+
+`dplyr` 문법의 또 다른 한 부분인 `%>%`연산자를 소개합니다. `%>%`을 `파이프 연산자(pipe operator)`라 부릅니다. `ggplot2` 구문에서의 `+`와 비슷한 기능을 한다고 생각하면 됩니다.
+
+`%>%` 연산자는 앞 구문 실행 결과인 출력값을 가져다가 다음 구문의 입력값으로 사용합니다. 그러므로 파이프 연산자를 사용한 아래 구문은,
+
+```{r ch03-pipe, echo = TRUE, eval = FALSE}
+biopics %>% filter(race_known == "Known") %>%
+    mutate(poc_code = as.numeric(person_of_color))
+```
+
+다음처럼 해석할 수 있습니다.: 
+
+- `biopics` 데이터를, 
+- `filter()`에 보내서, 입력받은 데이터에 `race_known == "Known"` 조건의 필터 연산을 수행한 후 그 결과를, 
+- `mutate()`에 보내서, 입력받은 데이터로 `poc_code` 라는 새 변수를 정의합니다.
+
+파이프 연산을 적용하면, `filter()`에 `data` 인수를 기술하지 않습니다. 왜냐하면 `data` 인수값은 파이프에 의해서 `filter()`에 자동으로 공급되기 때문입니다. `mutate()`도 마찬가지입니다.
+
+`tidyverse`의 파이프 연산자 `%>%`는 `tidyverse` 패키지군의 여러 함수를 연결할 수 있습니다. 이것은 `tidyverse`의 가장 강력한 기능 중의 하나입니다. 
+
+어떤 처리를 수행하는 작업의 표준화된 연결을 **파이프라인(pipeline)**이라 합니다. 데이터 조작을 하는 일련의 과정을 파이프라인으로 만드는 것은 좋은 시도입니다. 수신 데이터에 파이프라인을 적용하면 `ggplot2`과 유사한 방법으로, 동일한 포맷을 갖는 데이터를 출력으로 보낼 수 있습니다.
+
+(역자 주) **파이프라인(pipeline)**은 마치 여러 개의 파이프를 연결하여 송유관을 만드는 작업과 유사합니다. 여러 마디의 파이프를 심리스(Seamless, 끊김없이 매끄럽게)하게 연결하여 원하는 장소에 안정하게 원유를 공급하는 송유관 공사를 연상하면 쉽습니다. 즉, 앞 마디의 파이프를 통과(출력)한 원유가 다음 마디의 파이프에 유입(입력)되는 과정을 거쳐서 최종 목적지로 원유를 운반하는 것처럼, 여러 데이터 조작 작업이 연결되어 최종 원하는 데이터를 생성하는 것입니다. 
+
+
+#### 학습 지침
+
++ `%>%`을 사용해서 `filter`에 `biopics`을 연결한 후 (`country=="US"`) 조건을 대입하세요. 
+
+```{r exc-03-13, exercise=TRUE, exercise.blanks = "___+"}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+biopics %>%
+  filter( ____ )
+
+```
+
+```{r exc-03-13-hint-1}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+biopics %>%
+  filter(country == "US")
+```
+
+
+### `group_by()`/`summarize()`
+
+`group_by()`는 스스로 아무것도 하지 않습니다. 그러나 `summarize()`와 함께 사용하여, 그룹별로 메트릭(metrics, 최솟값, 최댓값, 평균, 표준편차와 같은 통계 지표)을 계산할 수 있습니다. 다음 예를 보세요.:
+
+```{r ch03-groupby, eval = FALSE}
+countryMeans <- biopics %>% 
+                    filter(!is.na(box_office)) %>% 
+                    group_by(country) %>% 
+                    summarize(mean_box_office = mean(box_office))
+```
+
+여기서 우리는 `country`별로 `box_office`의 평균을 구하려 합니다. 그러기 위해서 우리는 먼저, 집계를 작업의 방해 요소인 결측치(NA)가 있는 행(관측치)을 제거해야 합니다. 
+
+어려운 질문 하나 하겠습니다. 범주형 변수인 `subject_sex`의 두 범주(수준, levels)의 `box_office` 평균은 차이가 있습니까? 
+
+#### 학습 지침
+
+먼저 `filter()`로 NA를 제거합니다. 그런 다음, `group_by()`와 `summarize()`로 `subject_sex`별  `box_office`의 평균을 계산하여 `mean_bo_by_gender` 이름의 변수를 만듭니다. 마지막으로 결과를 `gender_box_office`에 할당합니다. 
+
+```{r exc-03-14, exercise=TRUE, exercise.blanks = "___+"}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+gender_box_office <- biopics %>% 
+    filter( ____ ) %>%
+    group_by( ____ ) %>% 
+    summarize(mean_bo_by_gender =  ____ )
+    
+## gender_box_office의 앞부분 몇 건 조회
+head(gender_box_office)
+
+```
+
+```{r exc-03-14-hint-1}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+gender_box_office <- biopics %>% 
+    filter(!is.na(box_office)) %>%
+    group_by(subject_sex) %>% 
+    summarize(mean_bo_by_gender = mean(box_office))
+
+## gender_box_office의 앞부분 몇 건 조회
+head(gender_box_office)
+
+```
+
+### 건수 세기
+
+
+
+```{r biopics-count, eval = FALSE, echo=TRUE}
+biopics %>% group_by(type_of_subject) %>% summarize(count=n())
+```
+
+```{r exc-03-15, exercise=TRUE, exercise.blanks = "___+"}
+question("위 코드는 무슨 작업을 수행할까요? 콘솔에서 실행해 보세요!",
+         answer("단지 `biopics` 데이터 프레임을 보여줍니다.", 
+                message = "실행해 보고 어떤 작업을 수행하는지 확인해보세요."),
+         answer("`type_of_subject`의 범주별 건수를 계산하고, 그 결과를 집계 테이블에 넣습니다.", 
+                message = "이제 `group_by()`와 `summarize()`를 사용하여 범주별로 데이터 건수를 계산하는 방법을 알게 되었습니다.", 
+                correct = TRUE),
+         allow_retry = TRUE
+)
+```
+
+### `arrange()`
+
+`arrange()`는 지정한 변수를 기준으로 데이터를 정렬합니다. 만약 여러 개의 변수를 지정하면, 지정한 변수의 배열을 기준으로 정렬합니다. 예를 들어:
+
+```{r ch03-arrange, eval = FALSE, echo = TRUE}
+biopics %>% arrange(country, year_release)
+```
+
+이 구문은 먼저 `country` 기준으로 정렬한 다음에, 정렬된 `country` 범주안에서 `year_release` 기준으로 정렬합니다.
+
+#### 학습 지침
+
+`biopics`를 `year_release`, `country`를 기준으로 정렬합니다. 그리고 결과를 `biopics_sorted`에 할당합니다.
+
+```{r exc-03-16, exercise=TRUE, exercise.blanks = "___+"}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+biopics_sorted <- biopics %>%
+  arrange( ____ , ____ )
+
+head(biopics_sorted)
+```
+
+```{r exc-03-16-hint-1}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+biopics_sorted <- biopics %>% 
+  arrange(year_release, country)
+
+head(biopics_sorted)
+
+## gender_box_office의 앞부분 몇 건 조회
+head(gender_box_office)
+
+```
+
+
+### `select()`
+
+우리가 배울 마지막 함수는 `select()`입니다. `select()`로 다음을 수행할 수 있습니다.: 
+
+1) 컬럼 추출
+2) 컬럼의 순서 변경
+3) 데이터에서 컬럼 제거 
+4) 데이터에서 컬럼 이름 변경 
+
+예를 들어, 다음 코드를 보세요.:
+
+```{r biopics-ch03-select, eval = FALSE, echo = TRUE}
+biopics %>% select(movieTitle = title, box_office)
+```
+
+이 코드는 두 개의 컬럼(`title_of_movie`, `box_office`)만 추출합니다. 그리고 추출한 `title`의 이름을 `movieTitle`로 변경합니다.
+
+#### 학습 지침
+
++ `select()`로 `title`, `box_office`, `subject_sex` 변수를 추출하세요.
++ 이때, 추출한 `title`의 이름을 `movieTitle`로 변경하세요. 
++ 추출한 결과를 `threeVarTable`에 할당하세요.
+
+```{r exc-03-17, exercise=TRUE, exercise.blanks = "___+"}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+threeVarTable <- biopics %>% 
+  select( ____ , ____ , ____ )
+
+head(threeVarTable)
+```
+
+```{r exc-03-17-hint-1}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+threeVarTable <- biopics %>% 
+  select(movieTitle=title, box_office, subject_sex)
+
+head(threeVarTable)
+```
+
+### `select()`와 `filter()` 비교
+
+```{r exc-03-18, exercise=TRUE, exercise.blanks = "___+"}
+question("`select()`와 `filter()의 차이점은 무엇입니까?`",
+         answer("`select()`는 부울(booleans)에서 작동하는 반면, `filter()`는 모든 데이터 유형에서 작동합니다.", 
+                message = "이 두 함수를 사용하는데, 데이터 유형은 상관없습니다."),
+         answer("`select()`는 `filter()` 이후에만 작동합니다.", 
+                message = "`select()`와 `filter()`는 순서에 상관없이 사용할 수 있습니다!"),
+         answer("`select()`는 열에서 작동하고, `filter()`는 행에서 작동합니다.", 
+                message = "`dplyr` 숭배 집단에 오신 것을 환영합니다! 당신의 비밀해독 반지는 우편물에 있습니다.", 
+                correct = TRUE),
+         allow_retry = TRUE
+)
+```
+
+### 도전 1: 함수들을 통합하기
+
+이제 재미있는 작업에 도전합니다. 데이터 정제 및 변수 변환을 수행하기 위해서 `dplyr` 함수들을 묶어나가겠습니다.
+
+당신은 이 작업을 수행하는 동안 [`dplyr` 치트 시트](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)를 참고해도 됩니다.
+
+#### 학습 지침
+
++ `biopics` 데이터에서, `filter()`를 사용해서 2000년부터 2014년까지 개봉된 영화를 추립니다. (`year_release` 변수가 필요할 것입니다.)
++ 필터링하여 `box_office`에서 NA가 포함된 행을 제거합니다.
++ `mutate()`를 수행하여 신규 파생변수 `box_office_per_subject`를 생성합니다. (이 작업에 필요한 변수는 `box_office`와 `number_of_subjects`입니다.)
++ 수행한 결과를 `biopics_new`에 할당합니다.
++ `biopics_new`에 대해서 `summary()`를 수행해서 작업이 정상적으로 수행되었는지 확인합니다.
+
+```{r exc-03-19, exercise=TRUE, exercise.blanks = "___+"}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+biopics_by_country <- biopics %>%
+  filter(year_release ____ & year_release ____ ) %>%
+  filter(!is.na(box_office)) %>%
+  mutate(box_office_per_subject = ____ )
+
+summary(biopics_by_country)
+        
+```
+
+```{r exc-03-19-hint-1}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+biopics_by_country <- biopics %>%
+  filter(year_release <= 2014 & year_release >= 2000) %>%
+  filter(!is.na(box_office)) %>%
+  mutate(box_office_per_subject = box_office / number_of_subjects)
+
+summary(biopics_by_country)
+
+```
+
+### 도전 2: 실적 보이기
+
+인종이 국가별로 분류된(`race_known` == TRUE) 영화가 분류되지 않은(`race_known`== FALSE) 영화보다 더 많은 돈을 벌 수 있을까요?
+어떤 `race_known`/`country`의 조합이 가장 많은 수익을 올렸습니까?
+
+#### 학습 지침
+
++ 당신은 다른 작업에 앞서, 제일 먼저 `filter()` 작업으로 `box_office`가 `NA`인 행을 제거해야 합니다.
++ 그리고 어떤 변수가 `group_by()`에 필요한지 생각해 보세요. 
++ 마지막으로, 원하는 집계를 생성하는 `summarize()`를 수행합니다. (집계된 통계량을 `mean_box_office`에 할당합니다.) 
+and `arrange` on (don't forget to use `desc`!)? 
++ 결과를 `race_country_box_office`에 할당하세요.
++ `race_country_box_office`을 조회하세요.
+
+```{r exc-03-20, exercise=TRUE, exercise.blanks = "___+"}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+race_country_box_office <- biopics %>%
+____
+
+race_country_box_office
+        
+```
+
+```{r exc-03-20-hint-1}
+library(dplyr)
+biopics <- readRDS("data/biopics.rds")
+
+race_country_box_office <- biopics %>%
+    filter(!is.na(box_office)) %>%
+    group_by(race_known, country) %>%
+    summarize(mean_box_office=mean(box_office)) %>%
+    arrange(desc(mean_box_office))
+
+race_country_box_office
+
+```
+
+### 도전 3: `ggplot2`와 `dplyr` 함께 사용하기
+
+이제 우리는 아주 따끈한 요리를 만들 것입니다. 당신은 `dplyr`의 결과를 파이프라인을 통해서 `ggplot2` 구문으로 보낼 것입니다. 
+다음 예를 보세요.:
+
+```{r ch03-challenge-03, eval = FALSE, echo = TRUE}
+biopics %>%
+    filter(year_release >= 2000 & year_release <= 2014) %>%
+    mutate(box_office_per_subject = box_office / number_of_subjects) %>%
+    ggplot(aes(x = year_release, y = box_office_per_subject)) +
+    geom_point()
+```
+
+우리는 `%>%`를 사용해서 `dplyr` 구문을 `ggplot()`에 파이프링한다는 점에  유의해야 합니다. 기억해야 할  중요한 점은 `ggplot()` 함수 이후의 모든 구문들은 `+`로 연결해야 한다는 것입니다. `%>%`가 아닙니다.
+
+또다른 참고: `ggplot()` 함수에서 `data` 인수에 값을 지정하지 않습니다. 단지 그것을 파이프로 전달받을 뿐입니다. 
+
+`biopics`이 슬슬 지겨워지나요? 이 데이터 세트를 사용하는 것은 이번이 마지막이라 약속합니다.
+
+#### 학습 지침
+
++ 먼저, `biopics`의  `year_release` < 1990 조건으로 필터링합니다. 그리고 `box_office`의 값이 `NA`인 건을 제거합니다. 
++ 그리고 그결과를 파이프로, `box_office`을 x-y 좌표에 플로팅하는 `ggplot()` 구문에 넘겨줍니다. 
++ 기하학적 표현을 위해 인수값을 `x=year_release`, `y=log(box_office)`로 하는 `geom_point()`을 사용합니다.   
++ 포인트(점)의 색상은 `person_of_color`을 이용합니다. 
++ 시각화 결과를 `bPlot`에 저장합니다. 그리고 화면 출력을 위해서 `print(bPlot)`을 실행합니다.
+
+```{r exc-03-21, exercise=TRUE, exercise.blanks = "___+"}
+library(dplyr)
+library(ggplot2)
+biopics <- readRDS("data/biopics.rds")
+
+bPlot <- biopics %>%
+
+print(bPlot)
+
+```
+
+```{r exc-03-21-hint-1}
+library(dplyr)
+library(ggplot2)
+biopics <- readRDS("data/biopics.rds")
+
+bPlot <- biopics %>% 
+  filter(year_release < 1990) %>% 
+  filter(!is.na(box_office)) %>%
+    ggplot(aes(x=year_release, y=log(box_office), 
+               color=person_of_color)) +
+    geom_point()
+    
+print(bPlot)
+
+```
+
+### 이 장에서 배운 내용
+
+
+- `%>%`(파이프)의 사용 방법
+- `dplyr::filter()`
+- `dplyr::mutate()`
+- `dplyr::group_by()/dplyr::summarize()`
+- `dplyr::arrange()`
+- `dplyr::select()`
+- 이들 함수를 함께 사용하는 방법!
+
+이 챔터를 잘 마치셨습니다! 당신은 `tidyverse`의 닌자가 되는 길을 잘 헤쳐나가고 있습니다!
+
+**추가 리소스**
+
+- [데이터 변환](https://bookdown.org/sulgi/r4ds/data-transform.html), R을 활용한 데이터 과학(R for Data Science)의 이 장(챕터)도 `dplyr`의 기초를 배울 수 있는 좋은 길잡이입니다.
+- [Pipes](https://r4ds.had.co.nz/pipes.html), R을 활용한 데이터 과학(R for Data Science)의 이 장(챕터)에서는 워크플로우에서 파이프를 사용해야 하는 이유에 대해서 자세하게 설명합니다.
 
 
