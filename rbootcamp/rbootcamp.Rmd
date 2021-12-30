@@ -65,6 +65,6 @@ colnames(biopics)
 
 다음 학습으로 넘어갑니다!
 
-```{r rbootcamp-chapter-03, child = "rbootcamp-ch02.Rmd"}
+```{r rbootcamp-chapter-03, child = "rbootcamp-ch03.Rmd"}
 
 ```
