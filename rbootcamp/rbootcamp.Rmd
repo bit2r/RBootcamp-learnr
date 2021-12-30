@@ -16,13 +16,17 @@ library(here)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## ggplot2의 마법
+## 1장: ggplot2의 마법
+
+ggplot2로 데이터의 변수를 통계 플롯으로 시각화는 방법 학습
 
 ```{r rbootcamp-chapter-01, child = "rbootcamp-ch01.Rmd"}
 
 ```
 
-## ggplot2과 범주형 데이터
+## 2장: ggplot2과 범주형 데이터
+
+ggplot2 이용한 시각화 추가 정보 학습
 
 ```{r rbootcamp-chapter-02, child = "rbootcamp-ch02.Rmd"}
 
