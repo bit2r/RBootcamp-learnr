@@ -1,0 +1,47 @@
+---
+title: "R 신병 훈련소"
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(learnr)
+library(here)
+# library(learnrLara)
+knitr::opts_knit$set(root.dir = glue::glue("{here::here()}"))
+knitr::opts_chunk$set(echo = FALSE)
+
+gap1992 <- read.csv("data/gap1992.csv")
+```
+
+## 1장: ggplot2의 마법
+
+ggplot2로 데이터의 변수를 통계 플롯으로 시각화는 방법 학습
+
+```{r rbootcamp-chapter-01, child = "rbootcamp-ch01.Rmd"}
+
+```
+
+## 2장: ggplot2과 범주형 데이터
+
+ggplot2 이용한 시각화 추가 정보 학습
+
+```{r rbootcamp-chapter-02, child = "rbootcamp-ch02.Rmd"}
+
+```
+
+## 3장: dplyr 입문
+
+```{r rbootcamp-chapter-03, child = "rbootcamp-ch03.Rmd"}
+
+```
+
+## 4장: 깔끔한 데이터 필요성과 생성 방법
+
+```{r rbootcamp-chapter-04, child = "rbootcamp-ch04.Rmd"}
+
+```

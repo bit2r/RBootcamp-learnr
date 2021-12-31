@@ -13,7 +13,7 @@ R에는 두 가지의 팩터가 있습니다.:
 
 다음은 `ggplot2`에서 팩터를 사용하는 방법에 사용할, 간단한 데이터 세트입니다.
 
-```{r exc-02-01-new, exercise=TRUE, exercise.blanks = "___+"}
+```{r exc-02-01, exercise=TRUE, exercise.blanks = "___+"}
 library(dplyr)
 pets <- read.csv("data/pets.csv")
 
@@ -24,7 +24,7 @@ pets
 glimpse( ____ )
 ```
 
-```{r exc-02-01-new-hint}
+```{r exc-02-01-hint}
 library(dplyr)
 pets <- read.csv("data/pets.csv")
 
