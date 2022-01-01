@@ -15,8 +15,17 @@ library(here)
 knitr::opts_knit$set(root.dir = glue::glue("{here::here()}"))
 knitr::opts_chunk$set(echo = FALSE)
 
-gap1992 <- read.csv("data/gap1992.csv")
 ```
+
+
+## 0장: 들어가며
+
+
+```{r rbootcamp-chapter-00, child = "rbootcamp-ch00.Rmd"}
+
+```
+
+
 
 ## 1장: ggplot2의 마법
 
@@ -45,3 +54,11 @@ ggplot2 이용한 시각화 추가 정보 학습
 ```{r rbootcamp-chapter-04, child = "rbootcamp-ch04.Rmd"}
 
 ```
+
+
+## 5장: broom을 이용한 간단한 통계 모델링
+
+```{r rbootcamp-chapter-05, child = "rbootcamp-ch05.Rmd"}
+
+```
+

@@ -1,0 +1,23 @@
+
+
+```{r learnr-bitstat, echo = FALSE, out.width = "100%", }
+knitr::include_graphics("images/rbootcamp-learnr-bitstat.jpg")
+```
+
+디즈니 이영록님의 R-Bootcamp를 [Tidyverse Korea](https://www.facebook.com/groups/tidyverse) 페이스북 그룹에 소개한 것을 시작으로 유충현님이 R-Bootcamp 인터랙티브 교육의 Backend 기술을 [온라인 대화형 코스 플랫폼](https://choonghyunryu.github.io/Introduce_Online_Course_Start/)으로 소개한 후에 한글 번역을 [R 신병훈련소](https://r-bootcamp-kr.netlify.app/)에 마무리하여 공개해주셨습니다. R / Tidyverse 관련 교육이기는 하지만 인터랙티브 교육환경이 순도 100% R로 제작되지 않아 이광춘님이 `learnr` 코드로 작성하여 [R 신병훈련소](https://dl-dashboard.shinyapps.io/rbootcamp/)에 개발을 진행하여 공개해 주셨습니다. 향후 이런 기술은 오픈 통계 패키지 [BitStat](https://r2bit.com/)에 반영되어 많은 분들에게 도움이 되도록 R 사용자회가 노력을 경주하겠습니다.
+
+### 관련 정보
+
+- R 개발환경 설정 (영문 유튜브 동영상 포함) 
+     - [한글 번역](https://dl-dashboard.shinyapps.io/learnr_setup/)
+         - [소스코드](https://github.com/statkclee/learnr)
+     - [영어 원문](https://learnr-examples.shinyapps.io/ex-setup-r/)
+         - [소스코드](https://github.com/rstudio/learnr/blob/main/inst/tutorials/ex-setup-r/ex-setup-r.Rmd)
+- [RBootcamp](https://r-bootcamp.netlify.app/)
+     - [소스코드](https://github.com/laderast/RBootcamp)
+- INES 버전 한글 [R 신병훈련소](https://r-bootcamp-kr.netlify.app/)
+    - 유충현님 번역: [소스코드](https://github.com/bit2r/RBootcamp-kr)
+- `learnr` 버전 한글 [R 신병훈련소](https://dl-dashboard.shinyapps.io/rbootcamp/)
+    - 유충현님 번역 기반 이광춘 `learnr` 변환: [소스코드](https://github.com/bit2r/RBootcamp-learnr)
+- [BitStat](https://r2bit.com/)
+
