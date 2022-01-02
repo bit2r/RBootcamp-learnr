@@ -4,6 +4,7 @@ output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
+    language: custom_language.json
 runtime: shiny_prerendered
 ---
 
